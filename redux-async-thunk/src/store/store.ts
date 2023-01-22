@@ -1,14 +1,10 @@
-import {
-  combineReducers,
-  configureStore,
-  createAsyncThunk,
-} from '@reduxjs/toolkit'
-import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
-import { todosReducer } from '../features/Todos/todos-slice'
-import { filterReducer } from '../features/Filters/filter-slice'
-import { RootState, AppDispatch, ApiType } from './types'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
+import { todosReducer } from "../features/Todos/todos-slice";
+import { filterReducer } from "../features/Filters/filter-slice";
+import { RootState, AppDispatch } from "./types";
 // import storage from 'redux-persist/lib/storage'
-import * as todosApi from '../api/todos'
+import * as todosApi from "../api/todos";
 import {
   // persistReducer,
   persistStore,
@@ -18,13 +14,13 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
+} from "redux-persist";
 
 const rootReducer = combineReducers({
   todos: todosReducer,
   filters: filterReducer,
-})
-export const api = { todosApi }
+});
+export const api = { todosApi };
 // const persistedReducer = persistReducer(
 //   {
 //     key: 'root',
@@ -36,7 +32,7 @@ export const api = { todosApi }
 const store = configureStore({
   reducer: rootReducer,
   devTools: true,
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
         extraArgument: api,
@@ -47,8 +43,8 @@ const store = configureStore({
     }),
   // .concat(logger),
   // enhancers: [],
-})
-export default store
-export const persistor = persistStore(store)
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
-export const useTypedDispatch: () => AppDispatch = useDispatch
+});
+export default store;
+export const persistor = persistStore(store);
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useTypedDispatch: () => AppDispatch = useDispatch;
